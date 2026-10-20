@@ -1,0 +1,14 @@
+{
+    "renderer": {
+      "componentOverrides": {
+        "$": {
+          "definition": "@widget/c/orderStatusCard",
+          "attributes": {
+            "orderNumber": "{!$attrs.outputValues.orderNumber}",
+            "status": "{!$attrs.outputValues.status}"
+          }
+        }
+      }
+    }
+  }
+  

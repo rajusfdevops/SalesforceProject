@@ -1,0 +1,15 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" applyBodyTag="false">
+    <html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Recipe Explorer</title>
+        <base href="{!$Resource.RecipeExplorer}/" />
+        <link rel="stylesheet" href="{!$Resource.RecipeExplorer}/static/css/main.6fcaddc8.css" />
+    </head>
+    <body>
+        <div id="root"></div>
+        <script src="{!$Resource.RecipeExplorer}/static/js/main.c2490ebb.js"></script>
+    </body>
+    </html>
+</apex:page>

@@ -1,0 +1,348 @@
+<template>
+  <div class="recipe-container">
+    <!-- Loading Spinner -->
+    <template if:true={isLoading}>
+      <div class="loading-overlay">
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+      </div>
+    </template>
+
+    <!-- Header -->
+    <div class="header">
+      <h1 class="header-title">🍳 Recipe Explorer</h1>
+      <p class="header-subtitle">Discover delicious recipes from Spoonacular API</p>
+    </div>
+
+    <!-- Tabs -->
+    <lightning-tabset active-tab-value={activeTab} onactive={handleTabChange}>
+      <!-- Tab 1: Random Recipe -->
+      <lightning-tab label="Random Recipe" value="random">
+        <div class="tab-content">
+          <lightning-button
+            label="Show Random Recipe"
+            onclick={handleRandomRecipe}
+            variant="brand"
+            size="large"
+            class="button-spacing">
+          </lightning-button>
+
+          <template if:true={randomRecipe}>
+            <div class="recipe-detail-card">
+              <div class="recipe-image-container">
+                <img src={randomRecipe.image} alt={randomRecipe.title} class="recipe-image" onerror={handleImageError} />
+              </div>
+              <div class="recipe-info">
+                <h2 class="recipe-title">{randomRecipe.title}</h2>
+
+                <div class="recipe-stats">
+                  <div class="stat-item">
+                    <span class="stat-label">⏱️ Ready in:</span>
+                    <span class="stat-value">{randomRecipe.readyInMinutes} mins</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">🍽️ Servings:</span>
+                    <span class="stat-value">{randomRecipe.servings}</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">🌍 Cuisine:</span>
+                    <span class="stat-value">{randomRecipe.cuisines}</span>
+                  </div>
+                </div>
+
+                <div class="recipe-summary">
+                  <h3>Summary</h3>
+                  <p>{randomRecipe.summary}</p>
+                </div>
+
+                <div class="action-buttons">
+                  <lightning-button
+                    label="View Details"
+                    onclick={handleViewDetails}
+                    data-id={randomRecipe.id}
+                    variant="brand">
+                  </lightning-button>
+                  <template if:true={isFavorited}>
+                    <lightning-button
+                      label="Remove from Favorites"
+                      onclick={handleRemoveFavorite}
+                      variant="destructive">
+                    </lightning-button>
+                  </template>
+                  <template if:false={isFavorited}>
+                    <lightning-button
+                      label="Add to Favorites"
+                      onclick={handleAddFavorite}
+                      variant="success">
+                    </lightning-button>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </lightning-tab>
+
+      <!-- Tab 2: Search by Recipe ID -->
+      <lightning-tab label="Search by ID" value="searchId">
+        <div class="tab-content">
+          <div class="search-container">
+            <lightning-input
+              type="text"
+              label="Recipe ID"
+              placeholder="Enter Recipe ID (e.g., 716627)"
+              value={searchRecipeId}
+              onchange={handleSearchIdChange}
+              class="search-input">
+            </lightning-input>
+            <lightning-button
+              label="Search"
+              onclick={handleSearchById}
+              variant="brand"
+              size="large">
+            </lightning-button>
+          </div>
+
+          <template if:true={recipeIdResult}>
+            <div class="recipe-detail-card">
+              <div class="recipe-image-container">
+                <img src={recipeIdResult.image} alt={recipeIdResult.title} class="recipe-image" onerror={handleImageError} />
+              </div>
+              <div class="recipe-info">
+                <h2 class="recipe-title">{recipeIdResult.title}</h2>
+
+                <!-- Ingredients Section -->
+                <template if:true={recipeIdResult.extendedIngredients}>
+                  <div class="section">
+                    <h3>Ingredients</h3>
+                    <ul class="ingredients-list">
+                      <template for:each={recipeIdResult.extendedIngredients} for:item="ingredient">
+                        <li key={ingredient.id} class="ingredient-item">
+                          <span class="ingredient-name">{ingredient.name}</span>
+                          <span class="ingredient-amount">{ingredient.original}</span>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                </template>
+
+                <!-- Instructions Section -->
+                <template if:true={recipeIdResult.instructions}>
+                  <div class="section">
+                    <h3>Instructions</h3>
+                    <div class="instructions-text">{recipeIdResult.instructions}</div>
+                  </div>
+                </template>
+
+                <!-- Nutrition Section -->
+                <template if:true={recipeIdResult.nutrition}>
+                  <div class="section">
+                    <h3>Nutrition Information</h3>
+                    <p>Nutrition details will be displayed here</p>
+                  </div>
+                </template>
+
+                <div class="action-buttons">
+                  <template if:true={isFavorited}>
+                    <lightning-button
+                      label="Remove from Favorites"
+                      onclick={handleRemoveFavorite}
+                      variant="destructive">
+                    </lightning-button>
+                  </template>
+                  <template if:false={isFavorited}>
+                    <lightning-button
+                      label="Add to Favorites"
+                      onclick={handleAddFavorite}
+                      variant="success">
+                    </lightning-button>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </lightning-tab>
+
+      <!-- Tab 3: Search Recipes -->
+      <lightning-tab label="Search Recipes" value="search">
+        <div class="tab-content">
+          <div class="search-filters">
+            <lightning-input
+              type="text"
+              label="Recipe Name"
+              placeholder="e.g., Pasta, Chicken"
+              value={searchQuery}
+              onchange={handleSearchChange}
+              class="filter-input">
+            </lightning-input>
+
+            <lightning-combobox
+              label="Cuisine"
+              value={selectedCuisine}
+              options={cuisineOptions}
+              onchange={handleCuisineChange}
+              class="filter-input">
+            </lightning-combobox>
+
+            <lightning-combobox
+              label="Meal Type"
+              value={selectedMealType}
+              options={mealTypeOptions}
+              onchange={handleMealTypeChange}
+              class="filter-input">
+            </lightning-combobox>
+
+            <lightning-combobox
+              label="Diet Type"
+              value={selectedDiet}
+              options={dietOptions}
+              onchange={handleDietChange}
+              class="filter-input">
+            </lightning-combobox>
+
+            <lightning-button
+              label="Search Recipes"
+              onclick={handleSearchRecipes}
+              variant="brand"
+              size="large"
+              class="button-spacing">
+            </lightning-button>
+          </div>
+
+          <template if:true={searchResults}>
+            <div class="results-info">
+              <p>Found {totalResults} recipes | Page {currentPage} of {totalPages}</p>
+            </div>
+
+            <div class="recipe-grid">
+              <template for:each={searchResults} for:item="recipe">
+                <div key={recipe.id} class="recipe-card">
+                  <img src={recipe.image} alt={recipe.title} class="card-image" onerror={handleImageError} />
+                  <div class="card-content">
+                    <h3 class="card-title">{recipe.title}</h3>
+                    <p class="card-id">ID: {recipe.id}</p>
+                    <lightning-button
+                      label="View Details"
+                      onclick={handleViewDetails}
+                      data-id={recipe.id}
+                      size="small"
+                      variant="brand">
+                    </lightning-button>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+              <lightning-button
+                label="Previous"
+                onclick={handlePreviousPage}
+                disabled={isFirstPage}
+                class="pagination-button">
+              </lightning-button>
+              <span class="page-info">Page {currentPage} of {totalPages}</span>
+              <lightning-button
+                label="Next"
+                onclick={handleNextPage}
+                disabled={isLastPage}
+                class="pagination-button">
+              </lightning-button>
+            </div>
+          </template>
+        </div>
+      </lightning-tab>
+
+      <!-- Tab 4: My Favorites -->
+      <lightning-tab label="My Favorites" value="favorites">
+        <div class="tab-content">
+          <template if:true={favorites}>
+            <template if:false={favorites.length}>
+              <div class="empty-state">
+                <p>No favorite recipes yet. Add your favorites from other tabs!</p>
+              </div>
+            </template>
+
+            <template if:true={favorites.length}>
+              <div class="favorites-grid">
+                <template for:each={favorites} for:item="favorite">
+                  <div key={favorite.Id} class="favorite-card">
+                    <img src={favorite.Image_URL__c} alt={favorite.Recipe_Name__c} class="card-image" onerror={handleImageError} />
+                    <div class="card-content">
+                      <h3 class="card-title">{favorite.Recipe_Name__c}</h3>
+                      <p class="card-id">ID: {favorite.Recipe_ID__c}</p>
+                      <lightning-button
+                        label="Remove"
+                        onclick={handleRemoveFavoriteFromList}
+                        data-id={favorite.Recipe_ID__c}
+                        size="small"
+                        variant="destructive">
+                      </lightning-button>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </template>
+          </template>
+        </div>
+      </lightning-tab>
+    </lightning-tabset>
+
+    <!-- Recipe Details Modal -->
+    <template if:true={selectedRecipe}>
+      <div class="modal-overlay" onclick={handleCloseDetails}></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>{selectedRecipe.title}</h2>
+          <lightning-button-icon
+            icon-name="utility:close"
+            onclick={handleCloseDetails}
+            alternative-text="Close"
+            class="close-button">
+          </lightning-button-icon>
+        </div>
+
+        <div class="modal-body">
+          <div class="modal-image-container">
+            <img src={selectedRecipe.image} alt={selectedRecipe.title} class="modal-image" onerror={handleImageError} />
+          </div>
+
+          <div class="modal-info">
+            <h3>Basic Information</h3>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Servings</span>
+                <span class="info-value">{selectedRecipe.servings}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Cooking Time</span>
+                <span class="info-value">{selectedRecipe.readyInMinutes} mins</span>
+              </div>
+            </div>
+          </div>
+
+          <template if:true={selectedRecipe.extendedIngredients}>
+            <div class="modal-section">
+              <h3>Ingredients</h3>
+              <ul class="ingredients-list">
+                <template for:each={selectedRecipe.extendedIngredients} for:item="ingredient">
+                  <li key={ingredient.id} class="ingredient-item">
+                    <span>{ingredient.name}</span>
+                    <span class="ingredient-amount">{ingredient.original}</span>
+                  </li>
+                </template>
+              </ul>
+            </div>
+          </template>
+
+          <template if:true={selectedRecipe.instructions}>
+            <div class="modal-section">
+              <h3>Instructions</h3>
+              <p>{selectedRecipe.instructions}</p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>

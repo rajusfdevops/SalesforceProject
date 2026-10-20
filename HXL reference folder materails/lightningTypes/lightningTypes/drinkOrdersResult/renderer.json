@@ -1,0 +1,14 @@
+{
+  "renderer" : {
+    "componentOverrides" : {
+      "$" : {
+        "definition" : "@widget/c/drinkOrdersList",
+        "attributes" : {
+          "summaryLine" : "{!$attrs.outputValues.summaryLine}",
+          "orderCount" : "{!$attrs.outputValues.orderCount}",
+          "orders" : "{!$attrs.outputValues.orders}"
+        }
+      }
+    }
+  }
+}

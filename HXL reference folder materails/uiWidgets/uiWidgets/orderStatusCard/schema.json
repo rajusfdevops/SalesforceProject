@@ -1,0 +1,23 @@
+{
+    "title": "Order Status Widget",
+    "description": "Displays a soft drink order's number and current status",
+    "type": "object",
+    "properties": {
+      "attributes": {
+        "lightning:type": "lightning__objectType",
+        "properties": {
+          "orderNumber": {
+            "title": "Order Number",
+            "description": "The soft drink order number, formatted as plain text (no decimal formatting)",
+            "lightning:type": "lightning__textType"
+          },
+          "status": {
+            "title": "Status",
+            "description": "Current status of the order",
+            "lightning:type": "lightning__textType"
+          }
+        }
+      }
+    }
+  }
+  

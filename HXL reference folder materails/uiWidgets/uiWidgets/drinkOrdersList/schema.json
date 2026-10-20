@@ -1,0 +1,11 @@
+{"title":"Drink Orders List Widget","description":"Displays recent orders for a soft drink","type":"object",
+"properties":{"attributes":
+{"properties":
+{"summaryLine":{"title":"Summary Line","description":"Pre-formatted summary, e.g. \"3 orders found for Cola\"","lightning:type":"lightning__textType"},
+"orderCount":{"title":"Order Count","description":"Number of orders found (used to show/hide the empty state)","lightning:type":"lightning__numberType"},
+"orders":{"title":"Orders","description":"Up to 10 most recent orders for the drink","type":"array",
+"items":{"type":"object","properties":
+{"orderNumber":{"title":"Order Number","lightning:type":"lightning__textType"},
+"status":{"title":"Status","lightning:type":"lightning__textType"},
+"statusColor":{"title":"Status Color","lightning:type":"lightning__textType"},
+"price":{"title":"Price","lightning:type":"lightning__textType"},"quantity":{"title":"Quantity","lightning:type":"lightning__textType"}}}}},"lightning:type":"lightning__objectType"}}}

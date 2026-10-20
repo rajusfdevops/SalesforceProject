@@ -1,0 +1,16 @@
+.app-selector {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background-color: #f3f3f3;
+    border-radius: 4px;
+}
+
+.app-container {
+    padding: 1rem;
+    min-height: 600px;
+}
+
+iframe {
+    display: block;
+    margin: 0 auto;
+}

@@ -1,0 +1,113 @@
+<template>
+  <div class="lm-dashboard">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-content">
+        <div class="logo-section">
+          <div class="logo">⚡</div>
+          <div class="header-title">Learning Management</div>
+        </div>
+        <div class="header-nav">
+          <a href="#" class="active">Learning Management</a>
+          <a href="#">Courses</a>
+          <a href="#">Students</a>
+          <a href="#">Enrollments</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+      <!-- Brand Section -->
+      <div class="brand-section">
+        <div class="brand-badge">
+          <div>CONNECTED<br/>EXECUTIVE<br/>EDUCATION</div>
+        </div>
+        <div class="brand-text">
+          <h2>AIForce Learning Platform</h2>
+          <p>Comprehensive learning management and student progress tracking</p>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="search-section">
+        <input
+          type="text"
+          class="search-bar"
+          placeholder="Search by student, email, course..."
+          onchange={handleSearch}
+          lwc:ref="searchInput"
+        />
+      </div>
+
+      <!-- Metrics Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card completed">
+          <div class="metric-icon">✓</div>
+          <div class="metric-content">
+            <div class="metric-label">Completed</div>
+            <div class="metric-value">{completedCount}</div>
+          </div>
+        </div>
+
+        <div class="metric-card not-started">
+          <div class="metric-icon">📋</div>
+          <div class="metric-content">
+            <div class="metric-label">Not Started</div>
+            <div class="metric-value">{notStartedCount}</div>
+          </div>
+        </div>
+
+        <div class="metric-card in-progress">
+          <div class="metric-icon">🔄</div>
+          <div class="metric-content">
+            <div class="metric-label">In Progress</div>
+            <div class="metric-value">{inProgressCount}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enrollments Section -->
+      <div class="enrollments-section">
+        <div class="section-header">
+          <h3>Course Enrollments</h3>
+          <p class="section-subheader">Most recent enrollments with progress</p>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Student Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Progress</th>
+                <th>Created</th>
+                <th>Enrollment ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={enrollments} for:item="enrollment">
+                <tr key={enrollment.id}>
+                  <td class="student-name">{enrollment.studentName}</td>
+                  <td><a href="#" class="email-link">{enrollment.email}</a></td>
+                  <td>
+                    <div class="course-name">{enrollment.courseName}</div>
+                    <div class="course-id">{enrollment.courseId}</div>
+                  </td>
+                  <td>
+                    <div class="progress-bar">
+                      <div class="progress-fill" style={enrollment.progressStyle}></div>
+                    </div>
+                    <div class="progress-percent">{enrollment.progress}%</div>
+                  </td>
+                  <td>{enrollment.createdDate}</td>
+                  <td>{enrollment.enrollmentId}</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

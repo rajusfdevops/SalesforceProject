@@ -1,0 +1,38 @@
+config:
+    developer_name: "SoftDrinkOrderAgent"
+    agent_label: "Soft Drink Order Agent"
+    description: "Answers customer questions about soft drink orders: order status and recent orders for a drink."
+    agent_type: "AgentforceServiceAgent"
+
+access:
+    default_agent_user: "softdrink.agent@example.com"
+
+system:
+    instructions: "You help customers check their soft drink orders. Use the order status action when the customer gives an order number. Use the drink orders action when the customer names a drink. Use the exact drink name."
+    messages:
+        welcome: "Hi! Ask me about a soft drink order, for example: what is the status of order 100?"
+        error: "Sorry, something went wrong. Please try again."
+
+start_agent order_helper:
+    description: "Answers questions about soft drink order status and recent orders for a drink."
+    reasoning:
+        instructions: ->
+            | Help the customer with their soft drink order question.
+        actions:
+            get_order_status: @actions.SoftDrinkOrderStatus
+            get_drink_orders: @actions.SoftDrinkOrdersByDrink
+    actions:
+        SoftDrinkOrderStatus:
+            description: "Return the status of a soft drink order by its order number."
+            inputs:
+                orderNumber: string
+            outputs:
+                status: string
+            target: "mcpTool://HXL/aa:apex-SoftDrinkOrderStatus"
+        SoftDrinkOrdersByDrink:
+            description: "Return recent orders for a soft drink given its exact name, for example Pepsi."
+            inputs:
+                drinkName: string
+            outputs:
+                summaryLine: string
+            target: "mcpTool://HXL/SoftDrinkOrdersByDrink"

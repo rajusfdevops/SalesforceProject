@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UiWidgetBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Drink Orders List</masterLabel>
+    <description>Displays recent orders for a soft drink as a list of cards with status, quantity, and price.</description>
+    <widgetType>JSON</widgetType>
+</UiWidgetBundle>

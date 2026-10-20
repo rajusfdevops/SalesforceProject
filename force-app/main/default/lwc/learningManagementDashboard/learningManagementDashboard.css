@@ -1,0 +1,357 @@
+.lm-dashboard {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1F2937;
+  background: #F8F9FA;
+}
+
+/* Header */
+.header {
+  background: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 20px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background: #0070D2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.header-nav {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+}
+
+.header-nav a {
+  color: #6B7280;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.header-nav a:hover,
+.header-nav a.active {
+  color: #0070D2;
+}
+
+/* Main Container */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* Brand Section */
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 32px 0;
+  padding: 24px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+}
+
+.brand-badge {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #0070D2, #003B6F);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 11px;
+  text-align: center;
+  padding: 12px;
+  flex-shrink: 0;
+}
+
+.brand-text h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1F2937;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.brand-text p {
+  font-size: 12px;
+  color: #6B7280;
+  margin: 0;
+}
+
+/* Search Bar */
+.search-section {
+  margin-bottom: 32px;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #FFFFFF;
+  color: #1F2937;
+  font-family: inherit;
+}
+
+.search-bar::placeholder {
+  color: #6B7280;
+}
+
+/* Metrics Grid */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.metric-card {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  border-color: #0070D2;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.metric-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.metric-card.completed .metric-icon {
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.metric-card.not-started .metric-icon {
+  background: rgba(217, 119, 6, 0.1);
+  color: #D97706;
+}
+
+.metric-card.in-progress .metric-icon {
+  background: rgba(0, 112, 210, 0.1);
+  color: #0070D2;
+}
+
+.metric-content {
+  flex: 1;
+}
+
+.metric-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #6B7280;
+  margin-bottom: 8px;
+}
+
+.metric-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1F2937;
+  line-height: 1;
+}
+
+/* Enrollments Section */
+.enrollments-section {
+  background: #FFFFFF;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+}
+
+.section-header {
+  background: #003B6F;
+  color: white;
+  padding: 20px 24px;
+}
+
+.section-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.section-subheader {
+  font-size: 12px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  background: #F8F9FA;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #1F2937;
+  border-bottom: 1px solid #E5E7EB;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+tr:hover {
+  background: #F8F9FA;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+.student-name {
+  font-weight: 600;
+  color: #1F2937;
+}
+
+.email-link {
+  color: #0070D2;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
+.course-name {
+  color: #1F2937;
+  font-weight: 500;
+}
+
+.course-id {
+  font-size: 11px;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #F0F3F8;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0070D2, #059669);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-percent {
+  font-weight: 600;
+  color: #1F2937;
+  font-size: 12px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .header-nav {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .brand-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 12px 8px;
+  }
+
+  .metric-value {
+    font-size: 24px;
+  }
+}

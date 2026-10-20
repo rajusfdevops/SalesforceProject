@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": [
+    "salesforceMcp"
+  ],
+  "enableAllProjectMcpServers": true
+}

@@ -1,0 +1,21 @@
+{
+    "title": "Order Status Output Values",
+    "description": "Payload fields from the SoftDrinkOrderStatus response",
+    "type": "object",
+    "lightning:type": "lightning__objectType",
+    "lightning:tags": ["mcp"],
+    "unevaluatedProperties": false,
+    "properties": {
+      "orderNumber": {
+        "title": "Order Number",
+        "description": "The soft drink order number",
+        "lightning:type": "lightning__numberType"
+      },
+      "status": {
+        "title": "Status",
+        "description": "Current status of the soft drink order",
+        "lightning:type": "lightning__textType"
+      }
+    }
+  }
+  

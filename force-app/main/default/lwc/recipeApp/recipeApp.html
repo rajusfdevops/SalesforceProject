@@ -1,0 +1,81 @@
+<template>
+    <div class="recipe-app">
+        <div class="header">
+            <h1>🍳 Recipe Explorer</h1>
+            <p>Browse and explore delicious recipes</p>
+        </div>
+
+        <div class="controls">
+            <lightning-input
+                label="Search Recipes"
+                type="search"
+                placeholder="Enter recipe name..."
+                value={searchQuery}
+                onchange={handleSearchChange}>
+            </lightning-input>
+            <lightning-button
+                label="Search"
+                variant="brand"
+                onclick={handleSearch}
+                class="search-btn">
+            </lightning-button>
+            <lightning-button
+                label="Get Random Recipe"
+                variant="success"
+                onclick={handleRandomRecipe}
+                class="random-btn">
+            </lightning-button>
+        </div>
+
+        <template if:true={loading}>
+            <div class="loading">
+                <lightning-spinner alternative-text="Loading"></lightning-spinner>
+                <p>Loading recipes...</p>
+            </div>
+        </template>
+
+        <template if:true={error}>
+            <lightning-alert
+                title="Error"
+                message={error}
+                variant="error">
+            </lightning-alert>
+        </template>
+
+        <template if:true={recipes}>
+            <div class="recipes-container">
+                <template for:each={recipes} for:item="recipe">
+                    <div key={recipe.id} class="recipe-card">
+                        <div class="recipe-image">
+                            <img src={recipe.image} alt={recipe.title} />
+                        </div>
+                        <div class="recipe-content">
+                            <h3>{recipe.title}</h3>
+                            <div class="recipe-meta">
+                                <span class="meta-item">⏱️ {recipe.readyInMinutes} mins</span>
+                                <span class="meta-item">👥 {recipe.servings} servings</span>
+                            </div>
+                            <p class="recipe-summary">{recipe.summary}</p>
+                            <div class="recipe-actions">
+                                <lightning-button
+                                    label="View Details"
+                                    variant="base"
+                                    onclick={handleViewDetails}
+                                    data-id={recipe.id}>
+                                </lightning-button>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </template>
+
+        <template if:false={recipes}>
+            <template if:false={loading}>
+                <div class="no-recipes">
+                    <p>No recipes found. Try searching or get a random recipe!</p>
+                </div>
+            </template>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "salesforceMcp": {
+      "type": "stdio",
+      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "args": [
+        "-y",
+        "@salesforce/mcp@latest",
+        "--orgs",
+        "AIForce_dev",
+        "--toolsets",
+        "all"
+      ],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<McpServerDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>HXL Server</description>
+    <masterLabel>HXL</masterLabel>
+    <resources>
+        <description>Renders the soft drink order status as a card.</description>
+        <resourceName>orderStatusWidget</resourceName>
+        <resourceTitle>Order Status Widget</resourceTitle>
+        <resourceUri>ui://widget/lightningType/c__orderStatusResult</resourceUri>
+    </resources>
+    <resources>
+        <resourceName>drinkOrdersWidget</resourceName>
+        <resourceUri>ui://widget/lightningType/c__drinkOrdersResult</resourceUri>
+        <resourceTitle>Drink Orders List Widget</resourceTitle>
+        <description>Renders recent orders for a soft drink as a list of cards.</description>
+    </resources>
+    <tools>
+        <apiDefinition>
+            <apiIdentifier>aa:apex-SoftDrinkOrderStatus</apiIdentifier>
+            <apiSource>API_CATALOG</apiSource>
+            <operation>SoftDrinkOrderStatus</operation>
+        </apiDefinition>
+        <descriptionOverride>Return Status of the Soft Drink Order , when user ask for it, for example user can say what is the status of My Soft Drink order ABC</descriptionOverride>
+        <destructive>false</destructive>
+        <idempotent>false</idempotent>
+        <openWorld>false</openWorld>
+        <readOnly>false</readOnly>
+        <returnDirect>false</returnDirect>
+        <toolName>SoftDrinkOrderStatusapex_SoftDrinkOrderStatus</toolName>
+        <toolTitle>SoftDrinkOrderStatus</toolTitle>
+        <uiResource>orderStatusWidget</uiResource>
+    </tools>
+    <tools>
+        <apiDefinition>
+            <apiIdentifier>aa:apex-SoftDrinkOrdersByDrink</apiIdentifier>
+            <apiSource>API_CATALOG</apiSource>
+            <operation>SoftDrinkOrdersByDrink</operation>
+        </apiDefinition>
+        <descriptionOverride>Return recent orders for a soft drink given its exact name, for example &quot;show me all orders for Cola&quot;</descriptionOverride>
+        <destructive>false</destructive>
+        <idempotent>false</idempotent>
+        <openWorld>false</openWorld>
+        <readOnly>false</readOnly>
+        <returnDirect>false</returnDirect>
+        <toolName>SoftDrinkOrdersByDrinkapex_SoftDrinkOrdersByDrink</toolName>
+        <toolTitle>SoftDrinkOrdersByDrink</toolTitle>
+        <uiResource>drinkOrdersWidget</uiResource>
+    </tools>
+</McpServerDefinition>

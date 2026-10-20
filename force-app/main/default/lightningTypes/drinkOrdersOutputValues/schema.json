@@ -1,0 +1,25 @@
+{
+  "title" : "Drink Orders Output Values",
+  "description" : "Payload fields from the SoftDrinkOrdersByDrink response",
+  "lightning:type" : "lightning__objectType",
+  "lightning:tags" : [ "mcp" ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "drinkName" : {
+      "title" : "Drink Name",
+      "lightning:type" : "lightning__textType"
+    },
+    "orderCount" : {
+      "title" : "Order Count",
+      "lightning:type" : "lightning__numberType"
+    },
+    "summaryLine" : {
+      "title" : "Summary Line",
+      "lightning:type" : "lightning__textType"
+    },
+    "orders" : {
+      "title" : "Orders",
+      "lightning:type" : "@apexClassType/c__SoftDrinkOrdersByDrink$OrderRow"
+    }
+  }
+}
